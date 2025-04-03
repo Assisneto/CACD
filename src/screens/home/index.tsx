@@ -1,26 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Text, Dimensions, Animated, PanResponder } from "react-native";
-
-import {
-  Container,
-  Title,
-  CardWrapper,
-  Card,
-  AnimatedCard,
-  UpperSection,
-  MainText,
-  LowerSection,
-  QuestionNumber,
-  QuestionText,
-  InstructionContainer,
-  InstructionText,
-  IndicatorContainer,
-  AnimatedLeftIndicator,
-  AnimatedRightIndicator,
-  IndicatorText,
-  FeedbackContainer,
-  FeedbackText
-} from "./styles";
+import { Text, Dimensions, Animated, PanResponder, View } from "react-native";
 
 interface Question {
   number: number;
@@ -251,10 +230,10 @@ const Home: React.FC = () => {
 
   if (!currentCard || !currentCardItem || !currentQuestion) {
     return (
-      <Container>
-        <Title>Gambito App</Title>
+      <View className="flex-1 bg-background justify-center items-center">
+        <Text className="text-2xl font-bold mb-5">Gambito App</Text>
         <Text>Não há questões disponíveis</Text>
-      </Container>
+      </View>
     );
   }
 
@@ -263,40 +242,54 @@ const Home: React.FC = () => {
   };
 
   return (
-    <Container>
-      <Title>Gambito App</Title>
-      <CardWrapper>
-        <AnimatedCard style={cardStyle} {...panResponder.panHandlers}>
-          <Card>
-            <UpperSection>
-              <MainText>{currentCardItem.text}</MainText>
-            </UpperSection>
-            <LowerSection>
-              <QuestionNumber>Questão {currentQuestion.number}</QuestionNumber>
-              <QuestionText>{currentQuestion.text}</QuestionText>
-              <InstructionContainer>
-                <InstructionText>
+    <View className="flex-1 bg-background justify-center items-center">
+      <Text className="text-2xl font-bold mb-5">Gambito App</Text>
+      <View className="w-full h-[400px] relative justify-center items-center">
+        <Animated.View
+          className="w-[300px] h-[400px] absolute"
+          style={cardStyle}
+          {...panResponder.panHandlers}
+        >
+          <View className="w-[300px] h-[400px] bg-white rounded-lg justify-center items-center">
+            <View className="p-4 border-b border-background max-h-[40%]">
+              <Text className="text-base mb-2.5">{currentCardItem.text}</Text>
+            </View>
+            <View className="p-4 flex-1">
+              <Text className="font-bold mb-1">Questão {currentQuestion.number}</Text>
+              <Text className="text-[15px] mb-5">{currentQuestion.text}</Text>
+              <View className="items-center mt-2.5">
+                <Text className="text-textSecondary text-sm">
                   Deslize para a direita (C) ou para a esquerda (E)
-                </InstructionText>
-              </InstructionContainer>
-              <IndicatorContainer>
-                <AnimatedLeftIndicator style={{ opacity: leftOpacity }}>
-                  <IndicatorText>E</IndicatorText>
-                </AnimatedLeftIndicator>
-                <AnimatedRightIndicator style={{ opacity: rightOpacity }}>
-                  <IndicatorText>C</IndicatorText>
-                </AnimatedRightIndicator>
-              </IndicatorContainer>
+                </Text>
+              </View>
+              <View className="flex-row justify-between mt-5">
+                <Animated.View
+                  className="w-10 h-10 rounded-full justify-center items-center bg-red-200/20"
+                  style={{ opacity: leftOpacity }}
+                >
+                  <Text className="font-bold text-lg">E</Text>
+                </Animated.View>
+                <Animated.View
+                  className="w-10 h-10 rounded-full justify-center items-center bg-green-200/20"
+                  style={{ opacity: rightOpacity }}
+                >
+                  <Text className="font-bold text-lg">C</Text>
+                </Animated.View>
+              </View>
               {feedback && (
-                <FeedbackContainer correct={feedback === "Correto!"}>
-                  <FeedbackText>{feedback}</FeedbackText>
-                </FeedbackContainer>
+                <View
+                  className={`mt-4 p-2.5 rounded-md items-center ${
+                    feedback === "Correto!" ? "bg-green-500/20" : "bg-red-500/20"
+                  }`}
+                >
+                  <Text className="font-bold">{feedback}</Text>
+                </View>
               )}
-            </LowerSection>
-          </Card>
-        </AnimatedCard>
-      </CardWrapper>
-    </Container>
+            </View>
+          </View>
+        </Animated.View>
+      </View>
+    </View>
   );
 };
 
