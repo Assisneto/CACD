@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import Logo from "../components/Logo";
 
 type RootStackParamList = {
   Home: undefined;
@@ -99,7 +100,7 @@ const Home = () => {
   return (
     <View className="flex-1 bg-background">
       <View className="pt-14 pb-6 px-6">
-        <Text className="text-3xl font-bold text-textPrimary">Gambito</Text>
+        <Logo width={200} height={106} />
         <Text className="text-base text-textSecondary mt-1">
           Selecione uma disciplina para estudar
         </Text>

@@ -7,7 +7,8 @@ import {
   View,
   TouchableOpacity,
   Modal,
-  ScrollView
+  ScrollView,
+  Image
 } from "react-native";
 import { useRoute, useNavigation, RouteProp } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
@@ -455,11 +456,11 @@ const TinderCard: React.FC = () => {
         <TouchableOpacity onPress={() => navigation.goBack()} className="mr-4">
           <Ionicons name="arrow-back" size={24} color="#002147" />
         </TouchableOpacity>
-        <View>
-          <Text className="text-2xl font-bold text-textPrimary">
-            {currentCard.subject}
-          </Text>
-        </View>
+        <Image
+          source={require("../../../assets/icon.png")}
+          style={{ width: 30, height: 30 }}
+          resizeMode="contain"
+        />
       </View>
 
       <View className="flex-1 justify-center items-center">
@@ -484,6 +485,9 @@ const TinderCard: React.FC = () => {
                 }}
                 activeOpacity={0.7}
               >
+                <Text className="text-lg font-bold mb-2 text-textPrimary">
+                  {currentCard.subject}
+                </Text>
                 <Text className="text-base mb-2.5 text-textPrimary">
                   {currentCardItem.text}
                 </Text>
@@ -566,6 +570,9 @@ const TinderCard: React.FC = () => {
                 <Ionicons name="close" size={24} color="#002147" />
               </TouchableOpacity>
             </View>
+            <Text className="text-lg font-bold mb-2 text-textPrimary">
+              {currentCard.subject}
+            </Text>
             <Text className="text-base text-textPrimary">
               {modalText || "Texto não disponível"}
             </Text>
