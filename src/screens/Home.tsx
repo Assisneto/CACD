@@ -4,6 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import Logo from "../components/Logo";
+import { app } from "../config/firebase/firebase";
 
 type RootStackParamList = {
   Home: undefined;
@@ -92,6 +93,7 @@ const disciplines = [
 
 const Home = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
+  console.log("Firebase App Name: ", app.name);
 
   const handleDisciplinePress = (disciplineId: string) => {
     navigation.navigate("TinderCard", { disciplineId });
