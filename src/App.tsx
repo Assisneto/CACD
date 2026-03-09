@@ -22,6 +22,12 @@ type RootTabParamList = {
 const Stack = createStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
+const tabIconMap: Record<string, keyof typeof Ionicons.glyphMap> = {
+  HomeStack: "book",
+  Achievements: "trophy",
+  Profile: "person",
+};
+
 function HomeStack() {
   return (
     <Stack.Navigator initialRouteName="Home">
@@ -46,14 +52,7 @@ export default function App() {
         screenOptions={({ route }) => ({
           headerShown: false,
           tabBarIcon: ({ color }) => {
-            let iconName: keyof typeof Ionicons.glyphMap = "book";
-
-            if (route.name === "Achievements") {
-              iconName = "trophy";
-            } else if (route.name === "Profile") {
-              iconName = "person";
-            }
-
+            const iconName = tabIconMap[route.name] ?? "book";
             return <Ionicons name={iconName} size={28} color={color} />;
           },
           tabBarLabel: () => null,
