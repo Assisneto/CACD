@@ -451,7 +451,7 @@ const TinderCard: React.FC = () => {
   };
 
   return (
-    <View className="flex-1 bg-background">
+    <View className="flex-1 bg-background pb-16">
       <View className="pt-14 px-6 pb-4 flex-row items-center">
         <TouchableOpacity onPress={() => navigation.goBack()} className="mr-4">
           <Ionicons name="arrow-back" size={24} color="#002147" />

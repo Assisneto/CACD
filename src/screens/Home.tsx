@@ -108,7 +108,7 @@ const Home = () => {
         </Text>
       </View>
 
-      <ScrollView className="flex-1 px-4">
+      <ScrollView className="flex-1 px-4 pb-16">
         <View className="flex-row flex-wrap justify-between">
           {disciplines.map((discipline) => (
             <TouchableOpacity
