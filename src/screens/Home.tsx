@@ -5,9 +5,12 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import Logo from "../components/Logo";
 import { app } from "../config/firebase/firebase";
+import { useAuth } from "../contexts/AuthContext";
+import { logout } from "../services/authService";
 
 type RootStackParamList = {
   Home: undefined;
+  Login: undefined;
   TinderCard: { disciplineId: string };
 };
 
@@ -93,16 +96,35 @@ const disciplines = [
 
 const Home = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
+  const { user } = useAuth();
   console.log("Firebase App Name: ", app.name);
 
   const handleDisciplinePress = (disciplineId: string) => {
+    if (!user) {
+      navigation.navigate("Login");
+      return;
+    }
     navigation.navigate("TinderCard", { disciplineId });
   };
 
   return (
     <View className="flex-1 bg-background">
       <View className="pt-14 pb-6 px-6">
-        <Logo width={200} height={106} />
+        <View className="flex-row items-center justify-between">
+          <Logo width={200} height={106} />
+          {user ? (
+            <TouchableOpacity onPress={() => logout()} className="p-2">
+              <Ionicons name="log-out-outline" size={26} color="#6B7280" />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Login")}
+              className="p-2"
+            >
+              <Ionicons name="log-in-outline" size={26} color="#1E3A8A" />
+            </TouchableOpacity>
+          )}
+        </View>
         <Text className="text-base text-textSecondary mt-1">
           Selecione uma disciplina para estudar
         </Text>
